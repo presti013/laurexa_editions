@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="t d">
+  <title id="t">Laurexa Editions</title>
+  <desc id="d">Monogramme LX sur fond sombre avec traces de circuit</desc>
+  <rect width="64" height="64" fill="#0B0F14"/>
+  <g fill="none" stroke="#BA55D3" stroke-width="1.2" stroke-linecap="round">
+    <path d="M4 44 V16 H12"/><path d="M60 20 V46 H52"/>
+  </g>
+  <circle cx="12" cy="16" r="1.8" fill="#BA55D3"/>
+  <circle cx="52" cy="46" r="1.8" fill="#BA55D3"/>
+  <g fill="none" stroke-width="6" stroke-linecap="square">
+    <path d="M18 14 V50 H32" stroke="#00E5FF"/>
+    <path d="M36 14 L54 50" stroke="#00E5FF"/>
+    <path d="M54 14 L36 50" stroke="#BA55D3"/>
+  </g>
+</svg>

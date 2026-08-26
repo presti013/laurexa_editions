@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Laurexa Editions — maison d'édition indépendante. Littérature à l'ère numérique : fictions, essais et objets-livres augmentés." />
+  <meta name="theme-color" content="#0B0F14" />
+  <title>Laurexa Editions — Maison d'édition</title>
+
+  <link rel="icon" type="image/svg+xml" href="/laurexa_editions/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/laurexa_editions/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/laurexa_editions/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <script type="module" crossorigin src="/laurexa_editions/assets/index-CwXXp6kO.js"></script>
+  <link rel="stylesheet" crossorigin href="/laurexa_editions/assets/style-DI6hl-Ev.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
+
+  <!-- ══════════ NAVIGATION ══════════ -->
+  <header class="site-nav" id="top">
+    <nav aria-label="Navigation principale">
+      <a class="nav-brand" href="#top" aria-label="Laurexa Editions — accueil">
+        <span class="nav-brand__lx" aria-hidden="true">LX</span>
+        <span class="nav-brand__name">Laurexa <em>Editions</em></span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#catalogue" data-i18n="nav.catalogue">Catalogue</a></li>
+        <li><a href="#apropos"   data-i18n="nav.about">La maison</a></li>
+        <li><a href="#contact"   data-i18n="nav.contact">Contact</a></li>
+        <li>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch language to English">
+            <span data-lang-label>EN</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__grid" aria-hidden="true"></div>
+
+      <!-- Monogramme LX animé : traces de circuit + glitch chromatique au survol -->
+      <div class="hero__monogram" id="monogram-wrap">
+        <svg id="lx-monogram" viewBox="0 0 320 320" role="img"
+             aria-labelledby="lx-title lx-desc" class="monogram">
+          <title id="lx-title">Monogramme LX de Laurexa Editions</title>
+          <desc id="lx-desc">Les lettres L et X reliées par des traces de circuit imprimé qui s'illuminent.</desc>
+
+          <defs>
+            <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="4" result="b" />
+              <feMerge>
+                <feMergeNode in="b" /><feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glitch" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence id="glitch-noise" type="fractalNoise" baseFrequency="0 0"
+                            numOctaves="1" seed="7" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="0"
+                                 id="glitch-disp"
+                                 xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+            <linearGradient id="lx-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#00E5FF" />
+              <stop offset="1" stop-color="#BA55D3" />
+            </linearGradient>
+          </defs>
+
+          <g id="glitch-target">
+            <!-- Cadre HUD -->
+            <g class="hud" stroke="rgba(0,229,255,0.25)" stroke-width="1" fill="none">
+              <path d="M20 40 V20 H40" /><path d="M280 20 H300 V40" />
+              <path d="M300 280 V300 H280" /><path d="M40 300 H20 V280" />
+            </g>
+
+            <!-- Traces de circuit (illumination séquentielle) -->
+            <g class="traces" fill="none" stroke="#BA55D3" stroke-width="1.5" stroke-linecap="round">
+              <path class="trace" d="M60 250 H30 V120" />
+              <path class="trace" d="M60 90 H45 V60 H110" />
+              <path class="trace" d="M250 70 H285 V150" />
+              <path class="trace" d="M255 250 H290 V210" />
+              <path class="trace" d="M160 292 V270" />
+              <path class="trace" d="M120 30 V52" />
+              <path class="trace" d="M200 28 V50 H222" />
+            </g>
+            <g class="nodes" fill="#BA55D3">
+              <circle class="node" cx="30" cy="120" r="3.5" />
+              <circle class="node" cx="110" cy="60" r="3.5" />
+              <circle class="node" cx="285" cy="150" r="3.5" />
+              <circle class="node" cx="290" cy="210" r="3.5" />
+              <circle class="node" cx="160" cy="292" r="3.5" />
+              <circle class="node" cx="120" cy="30" r="3.5" />
+              <circle class="node" cx="222" cy="50" r="3.5" />
+            </g>
+
+            <!-- Lettres L X -->
+            <g class="letters" fill="none" stroke="url(#lx-grad)" stroke-width="14"
+               stroke-linecap="square" filter="url(#glow)">
+              <path class="letter" d="M78 78 V236 H140" />
+              <path class="letter" d="M168 78 L252 236" />
+              <path class="letter" d="M252 78 L168 236" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <p class="hero__eyebrow mono" data-i18n="hero.eyebrow">// maison d'édition indépendante — Liège</p>
+      <h1 class="hero__title" id="hero-title" data-i18n="hero.title">Des livres pour<br />l'ère numérique</h1>
+      <p class="hero__lead" data-i18n="hero.lead">
+        Laurexa Editions publie des fictions et des essais pensés pour l'écran comme pour le papier :
+        typographie soignée, éditions numériques augmentées, objets-livres singuliers.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#catalogue" data-i18n="hero.cta1">Découvrir le catalogue</a>
+        <a class="btn btn--ghost" href="#contact" data-i18n="hero.cta2">Proposer un manuscrit</a>
+      </div>
+    </section>
+
+    <!-- ══════════ CATALOGUE ══════════ -->
+    <section class="section" id="catalogue" aria-labelledby="catalogue-title">
+      <header class="section__head">
+        <span class="section__trace" aria-hidden="true"></span>
+        <h2 id="catalogue-title" data-i18n="cat.title">Catalogue</h2>
+        <p class="mono section__meta" data-i18n="cat.meta">/ parutions — 2026</p>
+      </header>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card__cover" aria-hidden="true"></div>
+          <h3 class="card__title">Esclaves du Temps</h3>
+          <p class="card__author mono" data-i18n="cat.b1.author">Roman — à paraître · édition spéciale Canada</p>
+          <blockquote class="card__quote" lang="fr">
+            Le temps ne vous appartient pas, il vous est prêté, avec intérêts.
+          </blockquote>
+        </article>
+        <article class="card">
+          <div class="card__cover" aria-hidden="true"></div>
+          <h3 class="card__title" lang="en">Slaves of Time</h3>
+          <p class="card__author mono" data-i18n="cat.b2.author">Roman — édition anglaise d'« Esclaves du Temps »</p>
+          <blockquote class="card__quote" lang="en">
+            Time does not belong to you, it is lent to you, with interest.
+          </blockquote>
+        </article>
+        <article class="card">
+          <div class="card__cover" aria-hidden="true"></div>
+          <h3 class="card__title" lang="it">Schiavi del Tempo</h3>
+          <p class="card__author mono" data-i18n="cat.b3.author">Roman — édition italienne d'« Esclaves du Temps »</p>
+          <blockquote class="card__quote" lang="it">
+            Il tempo non ti appartiene, ti è prestato, con gli interessi.
+          </blockquote>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ À PROPOS ══════════ -->
+    <section class="section section--alt" id="apropos" aria-labelledby="apropos-title">
+      <header class="section__head">
+        <span class="section__trace" aria-hidden="true"></span>
+        <h2 id="apropos-title" data-i18n="about.title">La maison</h2>
+        <p class="mono section__meta" data-i18n="about.meta">/ à propos</p>
+      </header>
+
+      <div class="about">
+        <p data-i18n="about.p1">
+          Fondée en 2026, Laurexa Editions est une maison indépendante installée en Belgique.
+          Nous croyons que le livre numérique mérite le même soin qu'un beau livre imprimé :
+          une maquette précise, une typographie lisible, une identité forte.
+        </p>
+        <p data-i18n="about.p2">
+          Chaque titre paraît simultanément en EPUB soigné et en édition papier à tirage limité,
+          avec une attention particulière portée aux couvertures, aux ornements de chapitre
+          et à l'accessibilité de lecture.
+        </p>
+        <ul class="about__facts mono">
+          <li><span data-i18n="about.f1">Fictions & essais</span></li>
+          <li><span data-i18n="about.f2">EPUB + papier</span></li>
+          <li><span data-i18n="about.f3">Liège, BE</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════ CONTACT + NEWSLETTER ══════════ -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <header class="section__head">
+        <span class="section__trace" aria-hidden="true"></span>
+        <h2 id="contact-title" data-i18n="contact.title">Contact</h2>
+        <p class="mono section__meta" data-i18n="contact.meta">/ écrire · s'abonner</p>
+      </header>
+
+      <div class="contact">
+        <div class="contact__block">
+          <h3 data-i18n="contact.write">Nous écrire</h3>
+          <p data-i18n="contact.writeDesc">Manuscrits, presse, libraires — une seule adresse :</p>
+          <a class="contact__mail mono" href="mailto:contact@laurexa.be">contact@laurexa.be</a>
+        </div>
+
+        <form class="contact__block newsletter" id="newsletter" novalidate>
+          <h3 data-i18n="nl.title">Newsletter</h3>
+          <p data-i18n="nl.desc">Nos parutions et coulisses, une fois par mois. Pas de spam.</p>
+          <label class="visually-hidden" for="nl-email" data-i18n="nl.label">Adresse e-mail</label>
+          <div class="newsletter__row">
+            <input type="email" id="nl-email" name="email" required
+                   autocomplete="email" placeholder="vous@exemple.be" data-i18n-ph="nl.placeholder" />
+            <button type="submit" class="btn btn--primary" data-i18n="nl.cta">S'abonner</button>
+          </div>
+          <p class="newsletter__msg mono" id="nl-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="mono">© 2026 Laurexa Editions — <a href="mailto:contact@laurexa.be">contact@laurexa.be</a></p>
+    <p class="mono site-footer__sys" aria-hidden="true">[ sys.status : online ] [ build : LX/1.0 ]</p>
+  </footer>
+
+</body>
+</html>
