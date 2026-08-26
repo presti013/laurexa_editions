@@ -1,0 +1,18 @@
+{
+  "name": "laurexa-editions",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site vitrine de la maison d'édition Laurexa Editions — thème cyberpunk",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && npx gh-pages -d dist"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "sass": "^1.77.0",
+    "gh-pages": "^6.1.1"
+  }
+}

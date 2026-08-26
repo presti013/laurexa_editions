@@ -1,0 +1,26 @@
+// ─── Design tokens — charte Laurexa Editions ───
+// Modifier ici pour ajuster couleurs / timings globalement.
+
+:root {
+  // Palette
+  --color-bg:      #0B0F14;   // Deep Cyber Noir
+  --color-cyan:    #00E5FF;   // Electric Cyan — marque, liens actifs, CTA
+  --color-magenta: #BA55D3;   // Neon Magenta — traces circuit, hovers
+  --color-text:    #B0C4DE;   // Light Steel Slate — texte courant
+  --color-grid:    rgba(0, 229, 255, 0.15); // gridlines HUD
+
+  --glow-cyan:    0 0 12px rgba(0, 229, 255, 0.25);
+  --glow-magenta: 0 0 10px rgba(186, 85, 211, 0.35);
+
+  // Typo
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  // Timings d'animation (ajustables)
+  --trace-duration: 650ms;   // durée d'illumination d'une trace
+  --trace-stagger:  140ms;   // délai entre chaque trace
+  --letter-delay:   900ms;   // apparition des lettres LX
+
+  --nav-height: 64px;
+}
