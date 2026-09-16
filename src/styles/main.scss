@@ -253,14 +253,38 @@ a:hover { color: var(--color-magenta); }
     box-shadow: var(--glow-magenta);
   }
 
+  // Couverture : <a> avec <img> (titre paru) ou <div> vide (placeholder HUD).
+  // Ratio 5/7 ≈ format réel des couvertures (600 × 836 px).
   &__cover {
-    aspect-ratio: 2 / 3; max-height: 240px;
-    margin-bottom: 18px;
+    display: block;
+    width: min(100%, 220px);
+    aspect-ratio: 5 / 7;
+    margin: 0 auto 18px;
     border: 1px solid var(--color-grid);
+    overflow: hidden;
     background:
       linear-gradient(160deg, rgba(186, 85, 211, 0.14), transparent 55%),
       repeating-linear-gradient(0deg, transparent 0 22px, var(--color-grid) 22px 23px),
       repeating-linear-gradient(90deg, transparent 0 22px, var(--color-grid) 22px 23px);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+
+    img {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 320ms ease;
+    }
+
+    &:is(a):hover, &:is(a):focus-visible {
+      border-color: var(--color-magenta);
+      box-shadow: var(--glow-magenta);
+      img { transform: scale(1.04); }
+    }
+  }
+
+  &__cta {
+    margin-top: 16px;
+    font-size: 0.8rem;
+    padding: 10px 18px;
   }
 
   &__title { font-size: 1.1rem; margin-bottom: 4px; }

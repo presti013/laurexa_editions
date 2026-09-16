@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 
-// `base` doit correspondre au nom du dépôt GitHub pour GitHub Pages.
+// Domaine personnalisé (www.laurexa.be) : `base` doit rester './'.
+// Ne PAS remettre '/laurexa_editions/' — cela casse les assets sur le domaine.
 // Dépôt : https://github.com/presti013/laurexa_editions
 export default defineConfig({
-  base: '/laurexa_editions/',
+  base: './',
   css: {
     preprocessorOptions: {
       scss: { api: 'modern-compiler' }

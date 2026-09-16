@@ -43,7 +43,11 @@ Le site sera servi sur `https://presti013.github.io/laurexa_editions/`.
 
 **Option B — GitHub Actions (recommandé)** : *Settings → Pages → Source : GitHub Actions*, puis ajoutez le workflow officiel « Deploy static content » en pointant l'étape upload vers `./dist` et en ajoutant `npm ci && npm run build` avant.
 
-> ⚠️ `vite.config.js` contient `base: '/laurexa_editions/'`. Si le nom du dépôt change, mettez cette valeur à jour, sinon les assets ne chargeront pas sur Pages.
+> ⚠️ `vite.config.js` contient `base: './'` (domaine personnalisé www.laurexa.be). `public/CNAME` doit exister : `npm run deploy` vide la branche `gh-pages` avant de la remplir, et sans ce fichier GitHub perd le domaine à chaque publication.
+
+## Catalogue — ajouter une couverture
+
+Déposer la vignette dans `public/covers/` (600 × 836 px, `.webp` + repli `.jpg`), puis dans `index.html` remplacer le `<div class="card__cover">` de la fiche par un `<a class="card__cover" href="…">` contenant `<picture>`, et ajouter le bouton `<a class="btn btn--ghost card__cta" data-i18n="cat.buy">`. Les libellés visibles viennent de `src/js/i18n.js`, pas du HTML.
 
 ## Structure
 
