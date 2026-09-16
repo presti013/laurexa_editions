@@ -18,7 +18,8 @@ export const translations = {
     'cat.buy': 'Commander sur Amazon',
     'cat.b1.author': 'Roman — disponible · édition brochée',
     'cat.b2.author': "Roman — édition anglaise d'« Esclaves du Temps »",
-    'cat.b3.author': "Roman — édition italienne d'« Esclaves du Temps »",
+    'cat.b3.author': 'Roman — traduction en cours · édition italienne',
+    'cat.b3.status': 'À paraître · In uscita',
     'about.title': 'La maison',
     'about.meta': '/ à propos',
     'about.p1':
@@ -57,7 +58,8 @@ export const translations = {
     'cat.buy': 'Buy on Amazon',
     'cat.b1.author': 'Novel — available · paperback edition',
     'cat.b2.author': 'Novel — English edition of “Esclaves du Temps”',
-    'cat.b3.author': 'Novel — Italian edition of “Esclaves du Temps”',
+    'cat.b3.author': 'Novel — translation in progress · Italian edition',
+    'cat.b3.status': 'Forthcoming · In uscita',
     'about.title': 'About us',
     'about.meta': '/ the house',
     'about.p1':
