@@ -17,8 +17,8 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
 
-  <script type="module" crossorigin src="./assets/index-CGTlEgh8.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/style-CRVYNKkP.css">
+  <script type="module" crossorigin src="./assets/index-UAFZHjpQ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/style-Ijnk9z3H.css">
 </head>
 <body>
 
@@ -142,8 +142,9 @@
 
       <div class="cards">
         <article class="card">
-          <a class="card__cover" href="https://www.amazon.fr/dp/B0HFBQVB1B"
-             target="_blank" rel="noopener noreferrer">
+          <a class="card__cover" href="https://www.amazon.fr/dp/2931222070"
+             target="_blank" rel="noopener noreferrer"
+             data-store-picker="esclaves-du-temps">
             <picture>
               <source type="image/webp" srcset="covers/esclaves-du-temps.webp" />
               <img src="./covers/esclaves-du-temps.jpg"
@@ -156,12 +157,14 @@
           <blockquote class="card__quote" lang="fr">
             Le temps ne vous appartient pas, il vous est prêté, avec intérêts.
           </blockquote>
-          <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/B0HFBQVB1B"
-             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy">Commander sur Amazon</a>
+          <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/2931222070"
+             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy"
+             data-store-picker="esclaves-du-temps">Commander sur Amazon</a>
         </article>
         <article class="card">
           <a class="card__cover" href="https://www.amazon.fr/dp/B0HDD1VV7J"
-             target="_blank" rel="noopener noreferrer">
+             target="_blank" rel="noopener noreferrer"
+             data-store-picker="slaves-of-time">
             <picture>
               <source type="image/webp" srcset="covers/slaves-of-time.webp" />
               <img src="./covers/slaves-of-time.jpg"
@@ -175,7 +178,8 @@
             Time does not belong to you, it is lent to you, with interest.
           </blockquote>
           <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/B0HDD1VV7J"
-             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy">Commander sur Amazon</a>
+             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy"
+             data-store-picker="slaves-of-time">Commander sur Amazon</a>
         </article>
         <article class="card">
           <div class="card__cover">
@@ -306,6 +310,34 @@
     <p class="mono">© 2026 Laurexa Editions — <a href="mailto:contact@laurexa.be">contact@laurexa.be</a></p>
     <p class="mono site-footer__sys" aria-hidden="true">[ sys.status : online ] [ build : LX/1.0 ]</p>
   </footer>
+
+  <!-- ══════════ SÉLECTEUR DE BOUTIQUE AMAZON ══════════
+       Un seul <dialog> partagé. Tout lien portant data-store-picker="<clé du livre>" l'ouvre (main.js §6) ;
+       sans JS, le lien garde son href (amazon.fr). Éditions, ASIN et boutiques : src/js/editions.js. -->
+  <dialog class="store-dialog" id="store-dialog" aria-labelledby="store-dialog-title">
+    <div class="store-dialog__panel">
+      <div class="store-dialog__head">
+        <span class="section__trace" aria-hidden="true"></span>
+        <p class="mono store-dialog__kicker" data-i18n="store.kicker">// boutique Amazon</p>
+      </div>
+      <h2 class="store-dialog__title" id="store-dialog-title" data-i18n="store.title">Choisissez votre boutique</h2>
+      <p class="mono store-dialog__book" id="store-dialog-book"></p>
+
+      <!-- Format : bascule si le livre a plusieurs éditions, simple pastille sinon (rempli par main.js §6) -->
+      <div class="store-dialog__formats" id="store-formats" role="group" aria-labelledby="store-formats-label">
+        <span class="visually-hidden" id="store-formats-label" data-i18n="store.format">Format</span>
+      </div>
+
+      <ul class="store-dialog__grid" id="store-list"></ul>
+
+      <p class="mono store-dialog__note" data-i18n="store.note">Prix et disponibilité selon la boutique.</p>
+
+      <button type="button" class="store-dialog__close" id="store-close">
+        <span aria-hidden="true">×</span>
+        <span class="visually-hidden" data-i18n="store.close">Fermer</span>
+      </button>
+    </div>
+  </dialog>
 
 </body>
 </html>
