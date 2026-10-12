@@ -58,7 +58,7 @@ Un lien d'achat ouvre un sélecteur de pays (14 boutiques KDP) au lieu de partir
    data-i18n="cat.buy" data-store-picker data-asin="ASIN">Commander sur Amazon</a>
 ```
 
-Le `href` reste le repli (sans JS). Les boutiques sont dans `src/js/stores.js` (ordre, ajout, retrait) ; les noms de pays FR/EN dans `src/js/i18n.js` (clés `store.<CODE>`). Le panneau est un unique `<dialog>` en bas de `index.html`.
+`ASIN` = celui du **broché** (ISBN-10 pour un ISBN en 978, ex. `2931222070`), pas celui de l'ebook : l'ebook n'est pas vendu dans toutes les boutiques. Le `href` reste le repli (sans JS). Les boutiques sont dans `src/js/stores.js` (ordre, ajout, retrait) ; les noms de pays FR/EN dans `src/js/i18n.js` (clés `store.<CODE>`). Le panneau est un unique `<dialog>` en bas de `index.html`.
 
 ## Structure
 
