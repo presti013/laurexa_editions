@@ -479,17 +479,23 @@ html:has(.store-dialog[open]) { overflow: hidden; scrollbar-gutter: stable; }
   to   { opacity: 1; transform: none; }
 }
 
-@media (min-width: 481px) {
+// 3 colonnes seulement quand le panneau a la place (≥ 600 px d'écran) ; en dessous, 2 colonnes.
+@media (min-width: 600px) {
   .store-dialog__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 480px) {
-  .store-dialog__panel { padding: 24px 18px 18px; }
+  .store-dialog__panel { padding: 24px 14px 18px; }
   .store-dialog__close { top: 10px; right: 10px; }
-  // Colonnes étroites : « Royaume-Uni » doit tenir sur une ligne
-  .store-link { gap: 8px; padding: 12px 10px; font-size: 0.85rem;
-    &__code { flex-basis: 1.7em; }
+  .store-dialog__grid { gap: 8px; }
+  // Colonnes étroites : « Royaume-Uni » / « United Kingdom » doivent tenir sur une ligne (≥ 360 px)
+  .store-link { gap: 6px; padding: 12px 10px; font-size: 0.85rem;
+    &__code { flex-basis: 1.5em; }
   }
+}
+
+@media (max-width: 400px) {
+  .store-link { padding-inline: 8px; font-size: 0.82rem; }
 }
 
 /* ─── À propos ─────────────────────────────────── */
