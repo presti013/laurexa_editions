@@ -15,6 +15,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+// Les bandes pleine largeur (.section--alt::before, inset -100vw) dépassent à droite et
+// élargissaient la page (défilement horizontal). `clip` rogne sans créer de conteneur de défilement.
+main { overflow-x: clip; }
+
 .mono { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.02em; }
 
 h1, h2, h3 {
