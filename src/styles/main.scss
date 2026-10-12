@@ -433,7 +433,9 @@ a:hover { color: var(--color-magenta); }
     list-style: none; margin: 0; padding: 0;
     display: grid; gap: 10px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    li { display: flex; } // tuiles de même hauteur si un nom passe sur deux lignes
+    li { display: flex; // tuiles de même hauteur si un nom passe sur deux lignes
+      &[hidden] { display: none; } // boutique exclue par data-stores
+    }
   }
 
   &__note { margin: 20px 0 0; color: rgba(176, 196, 222, 0.6); font-size: 0.75rem; }

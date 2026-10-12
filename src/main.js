@@ -145,6 +145,8 @@ function setupNewsletter(getLang) {
    Tout lien [data-store-picker][data-asin] ouvre le <dialog> #store-dialog au lieu de partir
    directement sur amazon.fr. Les liens pays sont de vrais <a> (clic droit, nouvel onglet, lecteurs
    d'écran) dont le href est recalculé à l'ouverture d'après l'ASIN du livre cliqué.
+   Optionnel : data-stores="US UK DE …" limite la liste aux boutiques où ce format est vendu
+   (ex. un ebook n'existe pas partout) ; absent = les 14 boutiques de stores.js.
    Dégradation : sans JS, ou sans <dialog> modal, le lien d'origine (amazon.fr) fonctionne tel quel. */
 function setupStorePicker() {
   const dialog = document.getElementById('store-dialog');
@@ -157,7 +159,8 @@ function setupStorePicker() {
   // et chaque bascule FR/EN les retraduit (ils portent data-i18n comme le reste du site).
   list.innerHTML = STORES.map(({ code, domain }) => `
     <li>
-      <a class="store-link" href="#" target="_blank" rel="noopener noreferrer" data-domain="${domain}">
+      <a class="store-link" href="#" target="_blank" rel="noopener noreferrer"
+         data-code="${code}" data-domain="${domain}">
         <span class="store-link__code mono" aria-hidden="true">${code}</span>
         <span class="store-link__name" data-i18n="store.${code}"></span>
       </a>
@@ -166,9 +169,21 @@ function setupStorePicker() {
   const links = [...list.querySelectorAll('.store-link')];
   let opener = null;
 
+  // Codes de boutiques proposés pour ce lien, dans l'ordre de stores.js (codes inconnus ignorés)
+  const storesFor = (trigger) => {
+    const all = STORES.map((s) => s.code);
+    const wanted = trigger.dataset.stores?.toUpperCase().split(/[\s,]+/).filter(Boolean);
+    return wanted?.length ? all.filter((c) => wanted.includes(c)) : all;
+  };
+
   const open = (trigger) => {
     const asin = trigger.dataset.asin;
-    links.forEach((a) => { a.href = storeUrl(a.dataset.domain, asin); });
+    const codes = storesFor(trigger);
+    links.forEach((a) => {
+      const shown = codes.includes(a.dataset.code);
+      a.closest('li').hidden = !shown; // réinitialisé à chaque ouverture (un seul <dialog> partagé)
+      if (shown) a.href = storeUrl(a.dataset.domain, asin);
+    });
     bookEl.textContent = trigger.closest('.card')?.querySelector('.card__title')?.textContent ?? '';
     bookEl.hidden = !bookEl.textContent;
     opener = trigger;
@@ -181,7 +196,8 @@ function setupStorePicker() {
 
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-store-picker]');
-    if (!trigger || !isValidAsin(trigger.dataset.asin)) return; // ASIN absent/invalide : lien normal
+    // ASIN absent/invalide, ou data-stores sans aucune boutique connue : le lien normal fonctionne
+    if (!trigger || !isValidAsin(trigger.dataset.asin) || !storesFor(trigger).length) return;
     e.preventDefault();
     open(trigger);
   });
