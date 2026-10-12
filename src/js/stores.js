@@ -1,13 +1,10 @@
-// ─── Boutiques Amazon (KDP) ───
-// Ordre = celui du menu « Afficher sur Amazon » de KDP. Réordonner / retirer une ligne ici
-// suffit : le sélecteur (main.js §6) se reconstruit tout seul.
-// Les noms de pays vivent dans i18n.js (clés `store.<CODE>`), pas ici.
+// ─── Boutiques Amazon ───
+// Catalogue de TOUTES les boutiques connues du site ; quelles boutiques proposer pour quelle édition
+// se règle dans editions.js. Ordre d'affichage = ordre de cette liste (celui du menu KDP, puis les
+// boutiques Kindle sans broché : BR, MX, IN). Les noms de pays vivent dans i18n.js (clés `store.<CODE>`).
 //
-// URL = https://www.<domain>/dp/<ASIN>. L'ASIN à utiliser est celui du BROCHÉ : pour un ISBN en 978,
-// c'est l'ISBN-10 (978-2-931222-07-2 → 2931222070), identique dans toutes les boutiques.
-// Ne pas mettre l'ASIN d'un ebook (B0…) : il ne vaut que dans les boutiques Kindle et donne
-// « page introuvable » ailleurs (Belgique et Suède signalées en erreur le 12/10/2026 avec l'ASIN ebook).
-// Si une boutique ne distribue pas encore le titre, retirer sa ligne ci-dessous.
+// URL = https://www.<domain>/dp/<ASIN>. L'ASIN d'un broché est l'ISBN-10 (identique partout) ;
+// celui d'un ebook (B0…) ne vaut que dans les boutiques Kindle (voir editions.js).
 
 export const STORES = [
   { code: 'US', domain: 'amazon.com' },
@@ -24,6 +21,9 @@ export const STORES = [
   { code: 'JP', domain: 'amazon.co.jp' },
   { code: 'CA', domain: 'amazon.ca' },
   { code: 'AU', domain: 'amazon.com.au' },
+  { code: 'BR', domain: 'amazon.com.br' },
+  { code: 'MX', domain: 'amazon.com.mx' },
+  { code: 'IN', domain: 'amazon.in' },
 ];
 
 const ASIN_RE = /^[A-Z0-9]{10}$/;

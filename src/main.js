@@ -1,5 +1,6 @@
 import { translations, applyLang, getSavedLang } from './js/i18n.js';
 import { STORES, isValidAsin, storeUrl } from './js/stores.js';
+import { BOOKS } from './js/editions.js';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -142,18 +143,19 @@ function setupNewsletter(getLang) {
 }
 
 /* ═══ 6. Sélecteur de boutique Amazon ═══
-   Tout lien [data-store-picker][data-asin] ouvre le <dialog> #store-dialog au lieu de partir
-   directement sur amazon.fr. Les liens pays sont de vrais <a> (clic droit, nouvel onglet, lecteurs
-   d'écran) dont le href est recalculé à l'ouverture d'après l'ASIN du livre cliqué.
-   Optionnel : data-stores="US UK DE …" limite la liste aux boutiques où ce format est vendu
-   (ex. un ebook n'existe pas partout) ; absent = les 14 boutiques de stores.js.
+   Tout lien [data-store-picker="<clé du livre>"] ouvre le <dialog> #store-dialog au lieu de partir
+   directement sur amazon.fr. Éditions, ASIN et boutiques de chaque livre : js/editions.js.
+   Plusieurs éditions (broché + ebook) → bascule de format dans le panneau ; une seule → pastille.
+   Les liens pays sont de vrais <a> (clic droit, nouvel onglet, lecteurs d'écran) dont le href et la
+   visibilité sont recalculés à chaque changement d'édition.
    Dégradation : sans JS, ou sans <dialog> modal, le lien d'origine (amazon.fr) fonctionne tel quel. */
 function setupStorePicker() {
   const dialog = document.getElementById('store-dialog');
   const list = document.getElementById('store-list');
   const bookEl = document.getElementById('store-dialog-book');
+  const formatsEl = document.getElementById('store-formats');
   const closeBtn = document.getElementById('store-close');
-  if (!dialog || !list || typeof dialog.showModal !== 'function') return;
+  if (!dialog || !list || !formatsEl || typeof dialog.showModal !== 'function') return;
 
   // Liste construite avant setupI18n() : le premier applyLang() traduit les noms de pays,
   // et chaque bascule FR/EN les retraduit (ils portent data-i18n comme le reste du site).
@@ -168,22 +170,35 @@ function setupStorePicker() {
 
   const links = [...list.querySelectorAll('.store-link')];
   let opener = null;
+  let editions = [];
 
-  // Codes de boutiques proposés pour ce lien, dans l'ordre de stores.js (codes inconnus ignorés)
-  const storesFor = (trigger) => {
-    const all = STORES.map((s) => s.code);
-    const wanted = trigger.dataset.stores?.toUpperCase().split(/[\s,]+/).filter(Boolean);
-    return wanted?.length ? all.filter((c) => wanted.includes(c)) : all;
-  };
+  // Éditions utilisables d'un livre : ASIN valide et au moins une boutique connue.
+  // `codes` suit l'ordre de stores.js, pas celui de editions.js.
+  const editionsFor = (key) => (BOOKS[key] ?? [])
+    .map((ed) => ({ ...ed, codes: STORES.map((s) => s.code).filter((c) => ed.stores.includes(c)) }))
+    .filter((ed) => isValidAsin(ed.asin) && ed.codes.length);
 
-  const open = (trigger) => {
-    const asin = trigger.dataset.asin;
-    const codes = storesFor(trigger);
+  const showEdition = (index) => {
+    const { asin, codes } = editions[index];
     links.forEach((a) => {
       const shown = codes.includes(a.dataset.code);
-      a.closest('li').hidden = !shown; // réinitialisé à chaque ouverture (un seul <dialog> partagé)
+      a.closest('li').hidden = !shown;
       if (shown) a.href = storeUrl(a.dataset.domain, asin);
     });
+    formatsEl.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
+  };
+
+  const open = (trigger, key) => {
+    editions = editionsFor(key);
+    // Un seul <dialog> partagé : tout est reconstruit à chaque ouverture (retour à la 1re édition).
+    formatsEl.querySelectorAll('.store-format').forEach((el) => el.remove());
+    formatsEl.insertAdjacentHTML('beforeend', editions.length > 1
+      ? editions.map(({ format }, i) =>
+          `<button type="button" class="store-format" data-index="${i}" data-i18n="store.${format}"></button>`).join('')
+      : `<span class="store-format store-format--static" data-i18n="store.${editions[0].format}"></span>`);
+    applyLang(document.documentElement.lang); // traduit les libellés de format qui viennent d'être insérés
+    showEdition(0);
+
     bookEl.textContent = trigger.closest('.card')?.querySelector('.card__title')?.textContent ?? '';
     bookEl.hidden = !bookEl.textContent;
     opener = trigger;
@@ -196,10 +211,15 @@ function setupStorePicker() {
 
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-store-picker]');
-    // ASIN absent/invalide, ou data-stores sans aucune boutique connue : le lien normal fonctionne
-    if (!trigger || !isValidAsin(trigger.dataset.asin) || !storesFor(trigger).length) return;
+    const key = trigger?.dataset.storePicker;
+    if (!trigger || !editionsFor(key).length) return; // clé inconnue ou édition inutilisable : lien normal
     e.preventDefault();
-    open(trigger);
+    open(trigger, key);
+  });
+
+  formatsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-index]');
+    if (btn) showEdition(Number(btn.dataset.index));
   });
 
   list.addEventListener('click', (e) => {

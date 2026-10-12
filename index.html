@@ -143,7 +143,7 @@
         <article class="card">
           <a class="card__cover" href="https://www.amazon.fr/dp/2931222070"
              target="_blank" rel="noopener noreferrer"
-             data-store-picker data-asin="2931222070">
+             data-store-picker="esclaves-du-temps">
             <picture>
               <source type="image/webp" srcset="/covers/esclaves-du-temps.webp" />
               <img src="/covers/esclaves-du-temps.jpg"
@@ -158,13 +158,12 @@
           </blockquote>
           <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/2931222070"
              target="_blank" rel="noopener noreferrer" data-i18n="cat.buy"
-             data-store-picker data-asin="2931222070">Commander sur Amazon</a>
+             data-store-picker="esclaves-du-temps">Commander sur Amazon</a>
         </article>
         <article class="card">
           <a class="card__cover" href="https://www.amazon.fr/dp/B0HDD1VV7J"
              target="_blank" rel="noopener noreferrer"
-             data-store-picker data-asin="B0HDD1VV7J"
-             data-stores="US UK DE FR ES IT NL PL IE JP CA AU">
+             data-store-picker="slaves-of-time">
             <picture>
               <source type="image/webp" srcset="/covers/slaves-of-time.webp" />
               <img src="/covers/slaves-of-time.jpg"
@@ -179,8 +178,7 @@
           </blockquote>
           <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/B0HDD1VV7J"
              target="_blank" rel="noopener noreferrer" data-i18n="cat.buy"
-             data-store-picker data-asin="B0HDD1VV7J"
-             data-stores="US UK DE FR ES IT NL PL IE JP CA AU">Commander sur Amazon</a>
+             data-store-picker="slaves-of-time">Commander sur Amazon</a>
         </article>
         <article class="card">
           <div class="card__cover">
@@ -313,8 +311,8 @@
   </footer>
 
   <!-- ══════════ SÉLECTEUR DE BOUTIQUE AMAZON ══════════
-       Un seul <dialog> partagé. Tout lien portant data-store-picker + data-asin l'ouvre (main.js §6) ;
-       sans JS, le lien garde son href (amazon.fr). La liste des boutiques vient de src/js/stores.js. -->
+       Un seul <dialog> partagé. Tout lien portant data-store-picker="<clé du livre>" l'ouvre (main.js §6) ;
+       sans JS, le lien garde son href (amazon.fr). Éditions, ASIN et boutiques : src/js/editions.js. -->
   <dialog class="store-dialog" id="store-dialog" aria-labelledby="store-dialog-title">
     <div class="store-dialog__panel">
       <div class="store-dialog__head">
@@ -323,6 +321,11 @@
       </div>
       <h2 class="store-dialog__title" id="store-dialog-title" data-i18n="store.title">Choisissez votre boutique</h2>
       <p class="mono store-dialog__book" id="store-dialog-book"></p>
+
+      <!-- Format : bascule si le livre a plusieurs éditions, simple pastille sinon (rempli par main.js §6) -->
+      <div class="store-dialog__formats" id="store-formats" role="group" aria-labelledby="store-formats-label">
+        <span class="visually-hidden" id="store-formats-label" data-i18n="store.format">Format</span>
+      </div>
 
       <ul class="store-dialog__grid" id="store-list"></ul>
 

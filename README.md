@@ -51,14 +51,21 @@ Déposer la vignette dans `public/covers/` (600 × 836 px, `.webp` + repli `.jpg
 
 ## Catalogue — choix de la boutique Amazon
 
-Un lien d'achat ouvre un sélecteur de pays (14 boutiques KDP) au lieu de partir sur amazon.fr. Pour l'activer sur une fiche, ajouter **deux attributs** au lien de couverture et/ou au bouton :
+Un lien d'achat ouvre un panneau « Choisissez votre boutique » au lieu de partir sur amazon.fr. Deux endroits à connaître :
+
+1. **`index.html`** — sur le lien de couverture et le bouton de la fiche, ajouter la clé du livre (le `href` reste le repli sans JS) :
 
 ```html
 <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/ASIN" target="_blank" rel="noopener noreferrer"
-   data-i18n="cat.buy" data-store-picker data-asin="ASIN">Commander sur Amazon</a>
+   data-i18n="cat.buy" data-store-picker="esclaves-du-temps">Commander sur Amazon</a>
 ```
 
-`ASIN` = celui du **broché** (ISBN-10 pour un ISBN en 978, ex. `2931222070`), pas celui de l'ebook : l'ebook n'est pas vendu dans toutes les boutiques. Un titre disponible seulement en ebook (pas encore de broché) doit limiter la liste aux boutiques où il existe : ajouter `data-stores="US UK DE FR ES IT NL PL IE JP CA AU"` (codes de `stores.js`). À retirer dès que le broché est en ligne, avec l'ASIN du broché. Le `href` reste le repli (sans JS). Les boutiques sont dans `src/js/stores.js` (ordre, ajout, retrait) ; les noms de pays FR/EN dans `src/js/i18n.js` (clés `store.<CODE>`). Le panneau est un unique `<dialog>` en bas de `index.html`.
+2. **`src/js/editions.js`** — pour chaque clé, la liste des éditions : `format` (`print` ou `ebook`), `asin` et les `stores` où **cette édition** est vendue. Plusieurs éditions = bascule « Livre broché / Ebook Kindle » dans le panneau (la première s'ouvre d'abord) ; une seule = pastille de format.
+
+- L'ASIN du **broché** est l'ISBN-10 (978-2-931222-07-2 → `2931222070`), valable dans toutes les boutiques. L'ASIN d'un **ebook** (`B0…`) n'existe que dans les boutiques Kindle : ne pas l'utiliser ailleurs (page introuvable).
+- Quand un broché paraît (ex. *Slaves of Time*) : ajouter une ligne `print` dans `editions.js`, rien d'autre.
+- `src/js/stores.js` : catalogue des boutiques (domaines, ordre d'affichage) ; noms de pays et libellés FR/EN dans `src/js/i18n.js` (clés `store.*`).
+- Le panneau est un unique `<dialog>` en bas de `index.html`.
 
 ## Structure
 
@@ -71,7 +78,8 @@ Un lien d'achat ouvre un sélecteur de pays (14 boutiques KDP) au lieu de partir
 ├── src/
 │   ├── main.js              # animations, nav mobile, i18n, newsletter, sélecteur de boutique
 │   ├── js/i18n.js           # dictionnaire FR/EN
-│   ├── js/stores.js         # boutiques Amazon (domaines) + construction des URL
+│   ├── js/stores.js         # catalogue des boutiques Amazon (domaines) + construction des URL
+│   ├── js/editions.js       # éditions par livre : format, ASIN, boutiques où elle est vendue
 │   └── styles/
 │       ├── _tokens.scss     # ← palette, typo, TIMINGS d'animation
 │       └── main.scss        # tous les composants
