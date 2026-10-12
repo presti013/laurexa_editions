@@ -1,4 +1,5 @@
 import { translations, applyLang, getSavedLang } from './js/i18n.js';
+import { STORES, isValidAsin, storeUrl } from './js/stores.js';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -140,7 +141,63 @@ function setupNewsletter(getLang) {
   });
 }
 
+/* ═══ 6. Sélecteur de boutique Amazon ═══
+   Tout lien [data-store-picker][data-asin] ouvre le <dialog> #store-dialog au lieu de partir
+   directement sur amazon.fr. Les liens pays sont de vrais <a> (clic droit, nouvel onglet, lecteurs
+   d'écran) dont le href est recalculé à l'ouverture d'après l'ASIN du livre cliqué.
+   Dégradation : sans JS, ou sans <dialog> modal, le lien d'origine (amazon.fr) fonctionne tel quel. */
+function setupStorePicker() {
+  const dialog = document.getElementById('store-dialog');
+  const list = document.getElementById('store-list');
+  const bookEl = document.getElementById('store-dialog-book');
+  const closeBtn = document.getElementById('store-close');
+  if (!dialog || !list || typeof dialog.showModal !== 'function') return;
+
+  // Liste construite avant setupI18n() : le premier applyLang() traduit les noms de pays,
+  // et chaque bascule FR/EN les retraduit (ils portent data-i18n comme le reste du site).
+  list.innerHTML = STORES.map(({ code, domain }) => `
+    <li>
+      <a class="store-link" href="#" target="_blank" rel="noopener noreferrer" data-domain="${domain}">
+        <span class="store-link__code mono" aria-hidden="true">${code}</span>
+        <span class="store-link__name" data-i18n="store.${code}"></span>
+      </a>
+    </li>`).join('');
+
+  const links = [...list.querySelectorAll('.store-link')];
+  let opener = null;
+
+  const open = (trigger) => {
+    const asin = trigger.dataset.asin;
+    links.forEach((a) => { a.href = storeUrl(a.dataset.domain, asin); });
+    bookEl.textContent = trigger.closest('.card')?.querySelector('.card__title')?.textContent ?? '';
+    bookEl.hidden = !bookEl.textContent;
+    opener = trigger;
+    dialog.showModal();
+  };
+
+  document.querySelectorAll('[data-store-picker]').forEach((el) => {
+    el.setAttribute('aria-haspopup', 'dialog');
+  });
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-store-picker]');
+    if (!trigger || !isValidAsin(trigger.dataset.asin)) return; // ASIN absent/invalide : lien normal
+    e.preventDefault();
+    open(trigger);
+  });
+
+  list.addEventListener('click', (e) => {
+    if (e.target.closest('a')) dialog.close(); // la boutique s'ouvre dans un nouvel onglet
+  });
+  closeBtn?.addEventListener('click', () => dialog.close());
+  // Clic sur le fond : la cible est le <dialog> lui-même (le panneau le remplit entièrement)
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  // Rend le focus au lien d'origine (certains navigateurs ne le font pas seuls)
+  dialog.addEventListener('close', () => { opener?.focus({ preventScroll: true }); opener = null; });
+}
+
 /* ═══ Init ═══ */
+setupStorePicker(); // avant setupI18n() : voir ci-dessus
 const getLang = setupI18n();
 setupNav();
 setupNewsletter(getLang);

@@ -142,7 +142,8 @@
       <div class="cards">
         <article class="card">
           <a class="card__cover" href="https://www.amazon.fr/dp/B0HFBQVB1B"
-             target="_blank" rel="noopener noreferrer">
+             target="_blank" rel="noopener noreferrer"
+             data-store-picker data-asin="B0HFBQVB1B">
             <picture>
               <source type="image/webp" srcset="/covers/esclaves-du-temps.webp" />
               <img src="/covers/esclaves-du-temps.jpg"
@@ -156,7 +157,8 @@
             Le temps ne vous appartient pas, il vous est prêté, avec intérêts.
           </blockquote>
           <a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/B0HFBQVB1B"
-             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy">Commander sur Amazon</a>
+             target="_blank" rel="noopener noreferrer" data-i18n="cat.buy"
+             data-store-picker data-asin="B0HFBQVB1B">Commander sur Amazon</a>
         </article>
         <article class="card">
           <a class="card__cover" href="https://www.amazon.fr/dp/B0HDD1VV7J"
@@ -305,6 +307,29 @@
     <p class="mono">© 2026 Laurexa Editions — <a href="mailto:contact@laurexa.be">contact@laurexa.be</a></p>
     <p class="mono site-footer__sys" aria-hidden="true">[ sys.status : online ] [ build : LX/1.0 ]</p>
   </footer>
+
+  <!-- ══════════ SÉLECTEUR DE BOUTIQUE AMAZON ══════════
+       Un seul <dialog> partagé. Tout lien portant data-store-picker + data-asin l'ouvre (main.js §6) ;
+       sans JS, le lien garde son href (amazon.fr). La liste des boutiques vient de src/js/stores.js. -->
+  <dialog class="store-dialog" id="store-dialog" aria-labelledby="store-dialog-title">
+    <div class="store-dialog__panel">
+      <div class="store-dialog__head">
+        <span class="section__trace" aria-hidden="true"></span>
+        <p class="mono store-dialog__kicker" data-i18n="store.kicker">// boutique Amazon</p>
+      </div>
+      <h2 class="store-dialog__title" id="store-dialog-title" data-i18n="store.title">Choisissez votre boutique</h2>
+      <p class="mono store-dialog__book" id="store-dialog-book"></p>
+
+      <ul class="store-dialog__grid" id="store-list"></ul>
+
+      <p class="mono store-dialog__note" data-i18n="store.note">Prix et disponibilité selon la boutique.</p>
+
+      <button type="button" class="store-dialog__close" id="store-close">
+        <span aria-hidden="true">×</span>
+        <span class="visually-hidden" data-i18n="store.close">Fermer</span>
+      </button>
+    </div>
+  </dialog>
 
   <script type="module" src="/src/main.js"></script>
 </body>

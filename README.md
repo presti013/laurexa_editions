@@ -49,6 +49,17 @@ Le site sera servi sur `https://presti013.github.io/laurexa_editions/`.
 
 Déposer la vignette dans `public/covers/` (600 × 836 px, `.webp` + repli `.jpg`), puis dans `index.html` remplacer le `<div class="card__cover">` de la fiche par un `<a class="card__cover" href="…">` contenant `<picture>`, et ajouter le bouton `<a class="btn btn--ghost card__cta" data-i18n="cat.buy">`. Les libellés visibles viennent de `src/js/i18n.js`, pas du HTML.
 
+## Catalogue — choix de la boutique Amazon
+
+Un lien d'achat ouvre un sélecteur de pays (14 boutiques KDP) au lieu de partir sur amazon.fr. Pour l'activer sur une fiche, ajouter **deux attributs** au lien de couverture et/ou au bouton :
+
+```html
+<a class="btn btn--ghost card__cta" href="https://www.amazon.fr/dp/ASIN" target="_blank" rel="noopener noreferrer"
+   data-i18n="cat.buy" data-store-picker data-asin="ASIN">Commander sur Amazon</a>
+```
+
+Le `href` reste le repli (sans JS). Les boutiques sont dans `src/js/stores.js` (ordre, ajout, retrait) ; les noms de pays FR/EN dans `src/js/i18n.js` (clés `store.<CODE>`). Le panneau est un unique `<dialog>` en bas de `index.html`.
+
 ## Structure
 
 ```
@@ -58,8 +69,9 @@ Déposer la vignette dans `public/covers/` (600 × 836 px, `.webp` + repli `.jpg
 │   ├── favicon-32.png       # généré depuis le SVG
 │   └── apple-touch-icon.png # 180×180
 ├── src/
-│   ├── main.js              # animations, nav mobile, i18n, newsletter
+│   ├── main.js              # animations, nav mobile, i18n, newsletter, sélecteur de boutique
 │   ├── js/i18n.js           # dictionnaire FR/EN
+│   ├── js/stores.js         # boutiques Amazon (domaines) + construction des URL
 │   └── styles/
 │       ├── _tokens.scss     # ← palette, typo, TIMINGS d'animation
 │       └── main.scss        # tous les composants
