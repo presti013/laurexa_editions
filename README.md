@@ -105,7 +105,17 @@ L'intensité du glitch au survol se règle dans `src/main.js` (fonction `setupGl
 - **Glassmorphism nav** : `backdrop-filter: blur(10px)` sur fond `#0B0F14` à 85 %, avec fallback dégradé semi-transparent via `@supports` pour les navigateurs sans support ; `safe-area-inset` pour les encoches mobiles.
 - **Accessibilité** : `prefers-reduced-motion` respecté (monogramme affiché statique, transitions coupées), skip-link, landmarks sémantiques (`header/nav/main/footer`), `aria-expanded` sur le menu mobile, `role="status"` sur le message newsletter, `title/desc` sur les SVG, focus visible partout. Contrastes : `#B0C4DE` sur `#0B0F14` ≈ 10.9:1, `#00E5FF` sur `#0B0F14` ≈ 12.5:1 (AA/AAA).
 - **i18n FR/EN** : dictionnaire simple + attributs `data-i18n`, choix mémorisé en `localStorage`, `lang` mis à jour sur `<html>`.
-- **Newsletter** : validation front uniquement — brancher un service (Buttondown, Mailchimp, Brevo…) sur le `submit` quand vous serez prêt.
+- **Newsletter** : validation front uniquement — brancher un service (Buttondown, Mailchimp, Brevo…) sur le `submit` quand vous serez prêt. ⚠ La CSP (voir ci-dessous) interdit tout envoi vers un autre site : il faudra y autoriser le service (`connect-src` et/ou `form-action`).
+
+## Sécurité — polices locales et CSP
+
+GitHub Pages ne permet pas de configurer d'en-têtes HTTP. Le site applique donc ce qui est possible côté code :
+
+- **Polices auto-hébergées** (`src/styles/_fonts.scss`, paquets `@fontsource/*`, licence OFL-1.1) : plus aucune requête vers Google Fonts, donc aucune IP de visiteur transmise à un tiers. Sous-ensemble latin seul, 8 fichiers `.woff2` (≈ 155 Ko). Ajouter une graisse = ajouter une ligne `@include face(...)`.
+- **Content-Security-Policy en balise `<meta>`** (`vite.config.js`, constante `CSP`), injectée **au build uniquement** (en `npm run dev` elle bloquerait les styles et le HMR de Vite). Politique : `default-src 'none'`, puis `script-src`, `style-src`, `img-src`, `font-src` et `connect-src` limités à `'self'` ; `base-uri 'none'`, `form-action 'none'`, `upgrade-insecure-requests`.
+- **Conséquence** : toute ressource externe (police, script, image, service de newsletter, statistiques…) est bloquée tant qu'elle n'est pas autorisée dans `CSP`. Pas de `style="…"` ni de `<script>` inline dans `index.html`. Les liens `<a>` vers d'autres sites ne sont pas concernés.
+- **Limites** : `frame-ancestors` (anti-clickjacking) et HSTS sont ignorés ou impossibles en balise `<meta>` ; ils exigent de vrais en-têtes (par exemple un proxy comme Cloudflare devant GitHub Pages).
+- **Vérifier après un changement** : `npm run build && npm run preview`, ouvrir la console du navigateur et chercher « Refused to … because it violates the following Content Security Policy directive ».
 
 ## Contact
 
