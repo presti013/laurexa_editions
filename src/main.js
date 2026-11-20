@@ -163,7 +163,7 @@ function setupStorePicker() {
     <li>
       <a class="store-link" href="#" target="_blank" rel="noopener noreferrer"
          data-code="${code}" data-domain="${domain}">
-        <span class="store-link__code mono" aria-hidden="true">${code}</span>
+        <span class="store-link__flag" aria-hidden="true"></span>
         <span class="store-link__name" data-i18n="store.${code}"></span>
       </a>
     </li>`).join('');

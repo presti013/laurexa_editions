@@ -70,6 +70,7 @@ Un lien d'achat ouvre un panneau « Choisissez votre boutique » au lieu de part
 - Quand un broché paraît (ex. *Slaves of Time*) : ajouter une ligne `print` dans `editions.js`, rien d'autre.
 - `src/js/stores.js` : catalogue des boutiques (domaines, ordre d'affichage) ; noms de pays et libellés FR/EN dans `src/js/i18n.js` (clés `store.*`).
 - Le panneau est un unique `<dialog>` en bas de `index.html`.
+- **Drapeaux** : chaque tuile affiche un drapeau SVG (3:2) tiré de `public/flags/` (jeu [country-flag-icons](https://gitlab.com/catamphetamine/country-flag-icons), licence MIT : `public/flags/LICENSE`, ~8 Ko pour les 17). Le fichier est choisi par le code boutique dans la table `$store-flags` de `main.scss` (UK → `gb.svg`). Nouveau pays : ajouter `public/flags/xx.svg` **et** une ligne dans `$store-flags`. Les drapeaux restent dans `public/` (pas dans `src/`) : Vite inlinerait ces petits SVG en `data:` URI, que la CSP (`img-src 'self'`) bloque. Fond CSS d'une tuile masquée = rien n'est téléchargé avant l'ouverture du panneau. N'utiliser ni emoji (affichés « US », « FR » sous Windows) ni CDN.
 
 ## Structure
 
