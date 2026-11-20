@@ -49,6 +49,10 @@ Le site sera servi sur `https://presti013.github.io/laurexa_editions/`.
 
 Déposer la vignette dans `public/covers/` (600 × 836 px, `.webp` + repli `.jpg`), puis dans `index.html` remplacer le `<div class="card__cover">` de la fiche par un `<a class="card__cover" href="…">` contenant `<picture>`, et ajouter le bouton `<a class="btn btn--ghost card__cta" data-i18n="cat.buy">`. Les libellés visibles viennent de `src/js/i18n.js`, pas du HTML.
 
+**Grille** (`.cards`, `main.scss`) : colonnes explicites — 1 colonne en dessous de 560 px, 2 × 2 jusqu'à 1099 px, 4 sur une rangée dès 1100 px (largeur maximale de `.section`). Pas d'`auto-fit` : avec 4 titres il laisserait une carte seule sur la 2ᵉ ligne. Au-delà de 4 fiches, revoir ces seuils. Le bouton d'achat ou la pastille « À paraître » est poussé en bas de la carte (`margin-top: auto`) : les bas de fiche restent alignés quelle que soit la longueur de la citation.
+
+**Titre pas encore paru** (ex. *Schiavi del Tempo*, *Sklaven der Zeit*) : `<div class="card__cover">` (sans lien) et `<p class="card__status" data-i18n="cat.bN.status">` à la place du bouton. Le jour de la parution : remplacer la pastille par le bouton d'achat, transformer la couverture en `<a>`, ajouter la clé dans `src/js/editions.js` (voir ci-dessous) et passer `cat.bN.author` de « traduction en cours » à « disponible » si besoin.
+
 ## Catalogue — choix de la boutique Amazon
 
 Un lien d'achat ouvre un panneau « Choisissez votre boutique » au lieu de partir sur amazon.fr. Deux endroits à connaître :

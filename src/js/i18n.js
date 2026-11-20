@@ -44,7 +44,9 @@ export const translations = {
     'cat.b2.author': "Roman — édition anglaise d'« Esclaves du Temps »",
     'cat.b3.author': 'Roman — traduction en cours · édition italienne',
     'cat.b3.status': 'À paraître · In uscita',
-    'portal.kicker': 'Roman de science-fiction · FR · EN · IT',
+    'cat.b4.author': "Roman — édition allemande d'« Esclaves du Temps »",
+    'cat.b4.status': 'À paraître · Erscheint bald',
+    'portal.kicker': 'Roman de science-fiction · FR · EN · IT · DE',
     'portal.title': 'Le temps vous appartient-il encore ?',
     'portal.text':
       "Immergez-vous dans l'univers de l'auteur : musique originale, site dystopique et jeux interactifs.",
@@ -113,7 +115,9 @@ export const translations = {
     'cat.b2.author': 'Novel — English edition of “Esclaves du Temps”',
     'cat.b3.author': 'Novel — translation in progress · Italian edition',
     'cat.b3.status': 'Forthcoming · In uscita',
-    'portal.kicker': 'Science-fiction novel · FR · EN · IT',
+    'cat.b4.author': 'Novel — German edition of “Esclaves du Temps”',
+    'cat.b4.status': 'Forthcoming · Erscheint bald',
+    'portal.kicker': 'Science-fiction novel · FR · EN · IT · DE',
     'portal.title': 'Does time still belong to you?',
     'portal.text':
       "Step into the author's universe: original music, a dystopian website and interactive games.",

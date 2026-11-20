@@ -254,12 +254,18 @@ a:hover { color: var(--color-magenta); }
 }
 
 /* ─── Cartes catalogue ─────────────────────────── */
+// Colonnes explicites : avec 4 titres, auto-fit laisserait une carte seule sur la 2e ligne (3 + 1).
+// 1 colonne (mobile) → 2 × 2 (tablette, petit portable) → 4 sur une rangée dès que .section atteint 1100 px.
 .cards {
   display: grid; gap: 26px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
+
+  @media (min-width: 560px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 1100px) { grid-template-columns: repeat(4, 1fr); }
 }
 
 .card {
+  display: flex; flex-direction: column;
   border: 1px solid var(--color-cyan);
   box-shadow: var(--glow-cyan);
   padding: 22px;
@@ -301,7 +307,7 @@ a:hover { color: var(--color-magenta); }
   }
 
   &__cta {
-    margin-top: 16px;
+    margin-top: auto; align-self: flex-start; // poussé en bas de la carte
     font-size: 0.8rem;
     padding: 10px 18px;
   }
@@ -309,8 +315,8 @@ a:hover { color: var(--color-magenta); }
   // Titre sans lien d'achat : cartouche inerte, calé sur la hauteur de .card__cta
   // pour que le bas des trois fiches s'aligne.
   &__status {
-    display: inline-block;
-    margin: 16px 0 0;
+    display: inline-block; align-self: flex-start;
+    margin: auto 0 0; // poussé en bas de la carte
     padding: 9px 18px;
     border: 1px solid var(--color-magenta);
     color: var(--color-magenta);
@@ -325,7 +331,7 @@ a:hover { color: var(--color-magenta); }
   &__author { color: var(--color-magenta); margin: 0 0 12px; }
 
   &__quote {
-    margin: 0; padding-left: 14px;
+    margin: 0 0 16px; padding-left: 14px; // 16px = espace minimal avant le bouton / la pastille
     border-left: 1.5px solid var(--color-magenta);
     box-shadow: -1px 0 8px -2px rgba(186, 85, 211, 0.5);
     font-size: 0.95rem; font-style: italic;
@@ -354,7 +360,8 @@ a:hover { color: var(--color-magenta); }
   &__kicker {
     margin: 0 0 12px;
     color: var(--color-magenta-soft);
-    font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase;
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    text-wrap: balance; // si la liste des langues passe à la ligne : pas de « DE » orphelin
   }
 
   &__title {
