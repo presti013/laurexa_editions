@@ -1,21 +1,38 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://gc.zgo.at; style-src 'self'; img-src 'self' https://presti013.goatcounter.com; font-src 'self'; connect-src 'self' https://presti013.goatcounter.com; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="Laurexa Editions — maison d'édition indépendante. Littérature à l'ère numérique : fictions, essais et objets-livres augmentés." />
   <meta name="theme-color" content="#0B0F14" />
   <title>Laurexa Editions — Maison d'édition</title>
+  <link rel="canonical" href="https://www.laurexa.be/" />
+
+  <!-- Partage sur les réseaux (aperçu Facebook, LinkedIn, WhatsApp…) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Laurexa Editions" />
+  <meta property="og:locale" content="fr_BE" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:url" content="https://www.laurexa.be/" />
+  <meta property="og:title" content="Laurexa Editions — Des livres pour l'ère numérique" />
+  <meta property="og:description" content="Maison d'édition indépendante belge : fictions et essais en papier et en numérique. Esclaves du Temps, Slaves of Time, Schiavi del Tempo, Sklaven der Zeit." />
+  <meta property="og:image" content="https://www.laurexa.be/og-laurexa.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Laurexa Editions — monogramme LX et couvertures du catalogue" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.laurexa.be/og-laurexa.jpg" />
 
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
 
   <!-- Polices auto-hébergées : src/styles/_fonts.scss. La CSP est injectée au build : vite.config.js. -->
-  <script type="module" crossorigin src="./assets/index-C05A4kA0.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/style-Cp_9weln.css">
+  <script type="module" crossorigin src="./assets/main-QUGltcgw.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/stats-CXab9g2g.js">
+  <link rel="stylesheet" crossorigin href="./assets/style-D9_k6I7N.css">
 </head>
 <body>
 
@@ -205,7 +222,7 @@
       </div>
 
       <!-- Encart vers le site du roman (pleine largeur de la grille) -->
-      <aside class="portal" aria-labelledby="portal-title">
+      <div class="portal" role="region" aria-labelledby="portal-title">
         <svg class="portal__clock" aria-hidden="true" viewBox="0 0 120 120" fill="none">
           <circle cx="60" cy="60" r="54" stroke="#B0C4DE" stroke-opacity="0.35" stroke-width="1.5" />
           <circle cx="60" cy="60" r="54" stroke="#BA55D3" stroke-width="3"
@@ -251,7 +268,7 @@
           <!-- URL répartie lettre par lettre : occupe exactement la largeur du bouton -->
           <span class="portal__url" role="img" aria-label="www.esclavesdutemps.be"><span>w</span><span>w</span><span>w</span><span>.</span><span>e</span><span>s</span><span>c</span><span>l</span><span>a</span><span>v</span><span>e</span><span>s</span><span>d</span><span>u</span><span>t</span><span>e</span><span>m</span><span>p</span><span>s</span><span>.</span><span>b</span><span>e</span></span>
         </div>
-      </aside>
+      </div>
     </section>
 
     <!-- ══════════ À PROPOS ══════════ -->
@@ -306,13 +323,14 @@
             <button type="submit" class="btn btn--primary" data-i18n="nl.cta">S'abonner</button>
           </div>
           <p class="newsletter__msg mono" id="nl-msg" role="status" aria-live="polite"></p>
+          <p class="newsletter__note" data-i18n="nl.note">Le bouton ouvre votre messagerie avec une demande d'inscription pré-remplie. Aucune donnée n'est stockée sur ce site.</p>
         </form>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p class="mono">© 2026 Laurexa Editions — <a href="mailto:contact@laurexa.be">contact@laurexa.be</a></p>
+    <p class="mono">© 2026 Laurexa Editions — <a href="mailto:contact@laurexa.be">contact@laurexa.be</a> — <a href="mentions-legales.html" data-i18n="footer.legal">Mentions légales &amp; confidentialité</a></p>
     <p class="mono site-footer__sys" aria-hidden="true">[ sys.status : online ] [ build : LX/1.0 ]</p>
   </footer>
 
@@ -344,5 +362,7 @@
     </div>
   </dialog>
 
+  <!-- Mesure d'audience GoatCounter : sans cookie, comptage lancé par src/js/stats.js (chemin préfixé par le domaine) -->
+  <script data-goatcounter="https://presti013.goatcounter.com/count" data-goatcounter-settings='{"no_onload": true}' async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
