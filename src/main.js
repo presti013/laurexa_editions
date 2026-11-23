@@ -1,6 +1,7 @@
 import { translations, applyLang, getSavedLang } from './js/i18n.js';
 import { STORES, isValidAsin, storeUrl } from './js/stores.js';
 import { BOOKS } from './js/editions.js';
+import './js/stats.js';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -134,8 +135,15 @@ function setupNewsletter(getLang) {
     e.preventDefault();
     const dict = translations[getLang()];
     if (input.checkValidity() && input.value.includes('@')) {
+      // Pas de service d'envoi : la demande part de la messagerie du visiteur vers contact@laurexa.be.
+      const lang = getLang();
+      const subject = lang === 'en' ? 'Newsletter subscription' : 'Inscription newsletter';
+      const body = (lang === 'en'
+        ? 'Please add this address to the Laurexa Editions newsletter: '
+        : "Merci d'inscrire cette adresse à la newsletter de Laurexa Editions : ") + input.value.trim();
+      window.location.href = 'mailto:contact@laurexa.be?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
       msg.textContent = dict['nl.ok'];
-      input.value = '';
     } else {
       msg.textContent = dict['nl.err'];
     }

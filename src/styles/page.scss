@@ -1,0 +1,33 @@
+// Pages secondaires (mentions légales, 404) : même charte que l'accueil, sans les modules de l'accueil.
+@use 'tokens';
+@use 'fonts';
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); line-height: 1.65; }
+a { color: var(--color-cyan); text-underline-offset: 3px; }
+.page p a, .page li a { text-decoration: underline; }
+a:hover, a:focus-visible { color: var(--color-magenta-soft); }
+.mono { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.02em; }
+
+.page { max-width: 780px; margin: 0 auto; padding: 48px max(20px, env(safe-area-inset-left)) 72px max(20px, env(safe-area-inset-right)); }
+.page__back { display: inline-block; margin-bottom: 36px; text-decoration: none; }
+.page__kicker { color: var(--color-magenta-soft); margin: 0 0 8px; }
+.page h1 { font-family: var(--font-display); text-transform: uppercase; color: var(--color-cyan); font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; margin: 0 0 6px; letter-spacing: 0.03em; }
+.page h2 { font-family: var(--font-display); text-transform: uppercase; color: var(--color-cyan); font-size: 1.15rem; letter-spacing: 0.06em; margin: 40px 0 10px; padding-top: 18px; border-top: 1px solid rgba(0, 229, 255, 0.25); }
+.page h3 { font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; margin: 22px 0 4px; }
+.page p, .page li { margin: 0 0 10px; }
+.page strong { color: #fff; font-weight: 600; }
+.page__updated { opacity: 0.85; margin-bottom: 24px; }
+.page__langs { margin-top: 48px; }
+.page__langs a { margin-right: 14px; }
+
+// Une seule langue affichée quand le JS est actif (sans JS : les deux, l'une sous l'autre)
+.js [data-lang-block] { display: none; }
+.js [data-lang-block].is-active { display: block; }
+
+// 404
+.notfound { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px 20px; }
+.notfound__code { font-family: var(--font-mono); font-size: clamp(5rem, 22vw, 9rem); font-weight: 500; line-height: 1; color: var(--color-cyan); text-shadow: var(--glow-cyan); margin: 0; }
+.notfound__msg { margin: 18px auto 30px; max-width: 34ch; font: 400 1.1rem/1.6 var(--font-body); color: var(--color-text); text-transform: none; }
+.notfound .btn { display: inline-block; font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 13px 26px; text-decoration: none; background: var(--color-cyan); color: var(--color-bg); margin: 6px; }
+.notfound .btn--ghost { background: transparent; color: var(--color-cyan); border: 1px solid var(--color-cyan); }

@@ -626,8 +626,11 @@ $store-flags: ('US': 'us', 'UK': 'gb', 'DE': 'de', 'FR': 'fr', 'ES': 'es', 'IT':
            calc(28px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-right));
   display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   p { margin: 0; }
-  &__sys { color: rgba(176, 196, 222, 0.5); }
+  &__sys { color: rgba(176, 196, 222, 0.75); }
+  a { text-decoration: underline; text-underline-offset: 3px; }
 }
+
+.newsletter__note { font-size: 0.8rem; line-height: 1.5; margin: 10px 0 0; opacity: 0.85; }
 
 /* ─── Préférences de mouvement ─────────────────── */
 @media (prefers-reduced-motion: reduce) {
